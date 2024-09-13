@@ -60,7 +60,7 @@ static size_t ft_atoi(const char *str)
 void check(t_table *table, char **av)
 {
 	// res is multiplied by 1000 to convert from ms to usec for usleep
-	table->philosopher_count = ft_atoi(av[1]);
+	table->philo_count = ft_atoi(av[1]);
 	table->time_to_die = ft_atoi(av[2]) * 1000;
 	table->time_to_eat = ft_atoi(av[3]) * 1000;
 	table->time_to_sleep = ft_atoi(av[4]) * 1000;

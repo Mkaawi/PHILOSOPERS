@@ -17,14 +17,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+# include <sys/time.h>
 
 typedef struct s_table t_table;
-
-typedef struct s_fork 
-{
-	pthread_mutex_t mutex;
-	int				fork_id;
-} t_fork;
 
 typedef struct s_philo
 {
@@ -33,8 +28,8 @@ typedef struct s_philo
 	size_t			meals_counter;
 	size_t			last_meal_time; 	// time passed fom last meal
 	int				full; 				//flag if philo eaten all meals
-	t_fork			*left_fork;
-	t_fork			*right_fork;
+	pthread_mutex_t			*left_fork;
+	pthread_mutex_t			*right_fork;
 	t_table			*table;
 } t_philo;
 
@@ -47,8 +42,7 @@ typedef struct s_table
 	size_t			meals_limit; 		// both flag and value
 	size_t			start_time;
 	int				end_simulation; 	// flag if a philo dies / all full
-	t_fork			*forks;
-	t_philo			*philosophers;
+	t_philo			*philos;
 } t_table;
 
 
@@ -56,6 +50,8 @@ void		check(t_table	*table, char **av);
 void		table_init(t_table	*table);
 // void		start_sim(t_table	*table);
 void		*pmalloc(int bytes);
+size_t	timestamp(void);
+void	*philo_life(void *philo);
 void		error(char *str);
 
 #endif

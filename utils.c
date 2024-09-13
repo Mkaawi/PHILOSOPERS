@@ -23,7 +23,15 @@ void	*pmalloc(int bytes)
 	void	*ptr;
 	
 	ptr = malloc(bytes);
-	if (!ptr == NULL)
+	if (!ptr)
 		error("malloc error");
 	return (ptr);
+}
+
+size_t	timestamp(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
