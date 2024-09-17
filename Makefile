@@ -12,11 +12,11 @@
 
 NAME = philosophers
 
-SRC = main.c parsing.c utils.c init.c
+SRC = main.c parsing.c utils.c init.c sim.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 all: $(NAME)
 
