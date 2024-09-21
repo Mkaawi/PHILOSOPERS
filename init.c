@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
@@ -6,18 +6,15 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 00:48:44 by abdennac          #+#    #+#             */
-/*   Updated: 2024/09/08 01:29:12 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/09/20 03:48:09 by abdennac         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
 int philo_init(t_table *table)
 {
 	size_t i;
-
-	table->start_time = timestamp();
-	// printf("start_time : %ld\n", table->start_time);
 
 	i = -1;
 	while (++i < table->philo_count)
@@ -42,10 +39,10 @@ int philo_init(t_table *table)
 
 void table_init(t_table *table)
 {
+	table->philos = pmalloc(sizeof(t_philo) * table->philo_count);
+	table->start_time = timestamp();
+	table->end_simulation = 0;
 	pthread_mutex_init(&table->write_lock, NULL);
 	pthread_mutex_init(&table->meal_lock, NULL);
 	pthread_mutex_init(&table->dead_lock, NULL);
-	table->end_simulation = 0;
-	table->philos = pmalloc(sizeof(t_philo) * table->philo_count);
-	table->philos->last_meal_time = timestamp();
 }

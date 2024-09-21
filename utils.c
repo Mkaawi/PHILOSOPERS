@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 23:50:07 by abdennac          #+#    #+#             */
-/*   Updated: 2024/09/08 01:29:29 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/09/20 07:16:57 by abdennac         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
@@ -56,12 +56,6 @@ int	is_dead(t_philo *philo, int nb)
         printf("philo is dead\n"); 
 		return (1);
 	}
-    // if(philo->meals_counter >= philo->table->meals_limit)
-    // {
-    //    	pthread_mutex_unlock(&philo->table->dead_lock);
-    //     printf("philo is full\n"); 
-    //     return(1);
-    // }
 	pthread_mutex_unlock(&philo->table->dead_lock);
 	return (0); 
 }

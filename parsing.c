@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/09/08 00:48:57 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/09/20 07:34:13 by abdennac         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philosophers.h"
 
@@ -61,12 +61,12 @@ void check(t_table *table, char **av)
 {
 	// res is multiplied by 1000 to convert from ms to usec for usleep
 	table->philo_count = ft_atoi(av[1]);
-	table->time_to_die = ft_atoi(av[2]) * 1000;
-	table->time_to_eat = ft_atoi(av[3]) * 1000;
-	table->time_to_sleep = ft_atoi(av[4]) * 1000;
-	if (table->time_to_die < 60000 || table->time_to_eat < 60000 ||
-		table->time_to_sleep < 60000)
-		error("value too low, use bigger than 60ms");
+	table->time_to_die = ft_atoi(av[2]) ;
+	table->time_to_eat = ft_atoi(av[3]);
+	table->time_to_sleep = ft_atoi(av[4]);
+	// if (table->time_to_die < 60000 || table->time_to_eat < 60000 ||
+	// 	table->time_to_sleep < 60000)
+	// 	error("value too low, use bigger than 60ms");
 	if (av[5])
 		table->meals_limit = ft_atoi(av[5]);
 	else
