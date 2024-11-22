@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/09/20 07:34:13 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/11/22 01:28:41 by abdennac         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
@@ -25,9 +25,9 @@ static const char *is_valid(const char *str)
 	if (str[i] == '+')
 		i++;
 	else if (str[i] == '-')
-		error("No negative numbers pls");
+		return (printf("No negative numbers pls\n"), NULL);
 	if (!(str[i] >= '0' && str[i] <= '9'))
-		error("input is not a digit");
+		return (printf("input is not a digit\n"), NULL);
 	number = str;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
@@ -35,11 +35,11 @@ static const char *is_valid(const char *str)
 		len++;
 	}
 	if (len > 10)
-		error("value too long");
+		return (printf("value too long\n"), NULL);
 	return (number);
 }
 
-static size_t ft_atoi(const char *str)
+size_t ft_atoi(const char *str, t_table *table)
 {
 	size_t	res;
 	int		i;
@@ -47,28 +47,42 @@ static size_t ft_atoi(const char *str)
 	i = 0;
 	res = 0;
 	str = is_valid(str);
+	if (!str)
+		return (-1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = res * 10 + str[i] - '0';
 		i++;
 	}
 	if (res > 2147483647)
-		error("value too big");
+	{
+		printf("value too big\n");
+		table->error = true;
+	}
 	return (res);
-}
+} 
 
-void check(t_table *table, char **av)
-{
-	// res is multiplied by 1000 to convert from ms to usec for usleep
-	table->philo_count = ft_atoi(av[1]);
-	table->time_to_die = ft_atoi(av[2]) ;
-	table->time_to_eat = ft_atoi(av[3]);
-	table->time_to_sleep = ft_atoi(av[4]);
-	// if (table->time_to_die < 60000 || table->time_to_eat < 60000 ||
-	// 	table->time_to_sleep < 60000)
-	// 	error("value too low, use bigger than 60ms");
+int check(t_table *table, char **av)
+{	
+	table->philo_count = ft_atoi(av[1], table);
+	if (table->error == true)
+		return (1);
+	table->time_to_die = ft_atoi(av[2], table);
+	if (table->error == true)
+		return (1);
+	table->time_to_eat = ft_atoi(av[3], table);
+	if (table->error == true)
+		return (1);
+	table->time_to_sleep = ft_atoi(av[4], table);
+	if (table->error == true)
+		return (1);
 	if (av[5])
-		table->meals_limit = ft_atoi(av[5]);
+	{
+		table->meals_limit = ft_atoi(av[5], table);
+		if (table->error == true)
+			return (1);
+	}
 	else
 		table->meals_limit = -1;
+	return (0);
 }
