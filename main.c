@@ -6,29 +6,37 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:11 by abdennac          #+#    #+#             */
-/*   Updated: 2024/11/22 01:29:43 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/09 04:43:42 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	clean_table(t_table	*table)
+void	clean_table(t_table *table)
 {
-	(void)table;
+	int	i;
+
+	pthread_mutex_destroy(&table->write_lock);
+	pthread_mutex_destroy(&table->dead_lock);
+	pthread_mutex_destroy(&table->meal_lock);
+	i = -1;
+	while (++i < table->philo_count)
+		pthread_mutex_destroy(&table->philos[i].left_fork);
+	free(table->philos);
+	free(table);
+	
+	
 }
 
-int main (int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_table	table;
 
 	if (ac != 6 && ac != 5)
-	{
-		printf("invalid number of arguments\n");
+		return (printf("invalid number of arguments\n"), 1);
+	if (table_init(&table, av) == 1)
 		return (1);
-	}
-	if (check(&table, av) == 1)
-		return (1);
-	// table_init(&table);
-	// philo_init(&table);
-	// clean_table(&table); //if a philo dies or all are full
+	philo_init(&table);
+	return (0);
+	// clean_table(&table);
 }
