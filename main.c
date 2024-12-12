@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:11 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/09 04:43:42 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 08:37:52 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ void	clean_table(t_table *table)
 
 	pthread_mutex_destroy(&table->write_lock);
 	pthread_mutex_destroy(&table->dead_lock);
-	pthread_mutex_destroy(&table->meal_lock);
+	pthread_mutex_destroy(&table->stop_lock);
 	i = -1;
 	while (++i < table->philo_count)
+	{
+		pthread_mutex_destroy(&table->philos[i].meal_lock);
 		pthread_mutex_destroy(&table->philos[i].left_fork);
+	}
 	free(table->philos);
 	free(table);
-	
-	
 }
 
 int	main(int ac, char **av)
@@ -37,6 +38,6 @@ int	main(int ac, char **av)
 	if (table_init(&table, av) == 1)
 		return (1);
 	philo_init(&table);
+	clean_table(&table);
 	return (0);
-	// clean_table(&table);
 }

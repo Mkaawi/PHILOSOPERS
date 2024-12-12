@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:03 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/09 03:29:25 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:48:25 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo
 	pthread_mutex_t		left_fork;
 	pthread_mutex_t		*right_fork;
 	t_table				*table;
+	pthread_mutex_t		meal_lock;
 }						t_philo;
 
 typedef struct s_table
@@ -47,9 +48,9 @@ typedef struct s_table
 	int					finshed_eating;
 	pthread_mutex_t		write_lock;
 	pthread_mutex_t		dead_lock;
-	pthread_mutex_t		meal_lock;
 	pthread_mutex_t		stop_lock;
 	t_philo				*philos;
+	// pthread_mutex_t		*forks;
 	bool				error;
 }						t_table;
 

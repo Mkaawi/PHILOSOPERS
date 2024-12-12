@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/05 05:16:31 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:52:10 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_num(char **str)
 // {
 // 	int			i;
 // 	int			len;
-// 	// const char	*number;
+// 	const char	*number;
 
 // 	i = 0;
 // 	len = 0;
@@ -80,15 +80,15 @@ int	check_num(char **str)
 // 		return (printf("No negative numbers pls\n"), NULL);
 // 	if (!(str[i] >= '0' && str[i] <= '9'))
 // 		return (printf("input is not a digit\n"), NULL);
-// 	// number = str;
-// 	// while (str[i] >= '0' && str[i] <= '9')
-// 	// {
-// 	// 	i++;
-// 	// 	len++;
-// 	// }
-// 	// if (len > 10)
-// 	// 	return (printf("value too long\n"), NULL);
-// 	// return (number);
+// 	number = str;
+// 	while (str[i] >= '0' && str[i] <= '9')
+// 	{
+// 		i++;
+// 		len++;
+// 	}
+// 	if (len > 10)
+// 		return (printf("value too long\n"), NULL);
+// 	return (number);
 // 	return (str);
 // }
 
