@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 23:50:07 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 09:58:40 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:14:57 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,14 @@ void	print(t_philo *philo, char *str)
 			printf("%ld %d %s", time, philo->id, str);
 	}
 	pthread_mutex_unlock(&(philo->table->write_lock));
+}
+
+int	get_end_value(t_table *table)
+{
+	int	value;
+
+	pthread_mutex_lock(&table->dead_lock);
+	value = table->end_simulation;
+	pthread_mutex_unlock(&table->dead_lock);
+	return (value);
 }

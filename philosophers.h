@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:03 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 10:05:37 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:15:10 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ size_t					timestamp(void);
 int						is_dead(t_philo *philo, int nb);
 void					ft_usleep(size_t ms);
 void					print(t_philo *philo, char *str);
+int						get_end_value(t_table *table);
 
 #endif

@@ -6,20 +6,19 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:34:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 10:05:51 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:15:21 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	get_end_value(t_table *table)
+void	ff(t_philo *philos, t_table *table, int i)
 {
-	int	value;
-
-	pthread_mutex_lock(&table->dead_lock);
-	value = table->end_simulation;
-	pthread_mutex_unlock(&table->dead_lock);
-	return (value);
+	is_dead(&philos[i], 1);
+	pthread_mutex_lock(&table->write_lock);
+	printf("%ld : philo %d died\n", timestamp() - table->start_time,
+		philos[i].id);
+	pthread_mutex_unlock(&table->write_lock);
 }
 
 void	*monitor_philos(void *arg)
@@ -41,11 +40,7 @@ void	*monitor_philos(void *arg)
 			pthread_mutex_unlock(&philos[i].meal_lock);
 			if (time_since_last_meal >= table->time_to_die)
 			{
-				is_dead(&philos[i], 1);
-				pthread_mutex_lock(&table->write_lock);
-				printf("%ld : philo %d died\n", timestamp() - table->start_time,
-					philos[i].id);
-				pthread_mutex_unlock(&table->write_lock);
+				ff(philos, table, i);
 				return (NULL);
 			}
 			usleep(200);

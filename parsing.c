@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 06:52:10 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:16:43 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,33 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-int	ft_isdigit(int c)
+int	is_valid(const char *str)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int			i;
+	int			len;
+	const char	*number;
+
+	i = 0;
+	len = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
+		return (printf("No negative numbers pls\n"), 0);
+	if (!(str[i] >= '0' && str[i] <= '9'))
+		return (printf("input is not a digit\n"), 0);
+	number = str;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		i++;
+		len++;
+	}
+	if (len > 10)
+		return (printf("value too long\n"), 0);
+	return (1);
 }
+
 int	check_num(char **str)
 {
 	int	i;
@@ -55,7 +76,7 @@ int	check_num(char **str)
 		j = 0;
 		while (str[i][j])
 		{
-			if (!ft_isdigit(str[i][j]))
+			if (!is_valid(str[i]))
 				return (1);
 			j++;
 		}
@@ -63,83 +84,3 @@ int	check_num(char **str)
 	}
 	return (0);
 }
-
-// static const char *is_valid(const char *str)
-// {
-// 	int			i;
-// 	int			len;
-// 	const char	*number;
-
-// 	i = 0;
-// 	len = 0;
-// 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-// 		i++;
-// 	if (str[i] == '+')
-// 		i++;
-// 	else if (str[i] == '-')
-// 		return (printf("No negative numbers pls\n"), NULL);
-// 	if (!(str[i] >= '0' && str[i] <= '9'))
-// 		return (printf("input is not a digit\n"), NULL);
-// 	number = str;
-// 	while (str[i] >= '0' && str[i] <= '9')
-// 	{
-// 		i++;
-// 		len++;
-// 	}
-// 	if (len > 10)
-// 		return (printf("value too long\n"), NULL);
-// 	return (number);
-// 	return (str);
-// }
-
-// size_t ft_atoi(const char *str, t_table *table)
-// {
-// 	size_t	res;
-// 	int		i;
-
-// 	i = 0;
-// 	res = 0;
-// 	str = is_valid(str);
-// 	if (!str)
-// 		return (-1);
-// 	while (str[i] >= '0' && str[i] <= '9')
-// 	{
-// 		res = res * 10 + str[i] - '0';
-// 		i++;
-// 	}
-// 	if (res > 2147483647)
-// 	{
-// 		printf("value too big\n");
-// 		table->error = true;
-// 	}
-// 	return (res);
-// }
-
-/*int check(t_table *table, char **av)
-{
-	int	i;
-	int	res;
-	int	signe;
-
-	table->philo_count = ft_atoi(av[1], table);
-	if (table->error == true)
-		return (1);
-	table->time_to_die = ft_atoi(av[2], table);
-	if (table->error == true)
-		return (1);
-	table->time_to_eat = ft_atoi(av[3], table);
-	if (table->error == true)
-		return (1);
-	table->time_to_sleep = ft_atoi(av[4], table);
-	if (table->error == true)
-		return (1);
-	if (av[5])
-	{
-		table->meals_limit = ft_atoi(av[5], table);
-		if (table->error == true)
-			return (1);
-	}
-	else
-		table->meals_limit = -1;
-	return (0);
-}*/
