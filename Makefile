@@ -6,7 +6,7 @@
 #    By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/07 16:04:19 by abdennac          #+#    #+#              #
-#    Updated: 2024/12/12 08:41:54 by abdennac         ###   ########.fr        #
+#    Updated: 2024/12/12 10:05:27 by abdennac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = main.c parsing.c utils.c init.c sim.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

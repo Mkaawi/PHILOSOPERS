@@ -17,7 +17,7 @@ int	ft_atoi(const char *str)
 	int	i;
 	int	sign;
 	int	res;
-	
+
 	i = 0;
 	sign = 1;
 	res = 0;
@@ -46,8 +46,8 @@ int	ft_isdigit(int c)
 }
 int	check_num(char **str)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (str[i])

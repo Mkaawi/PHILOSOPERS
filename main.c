@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:11 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 08:37:52 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:04:21 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	clean_table(t_table *table)
 	{
 		pthread_mutex_destroy(&table->philos[i].meal_lock);
 		pthread_mutex_destroy(&table->philos[i].left_fork);
+		pthread_mutex_destroy(&table->philos[i].count_lock);
 	}
 	free(table->philos);
-	free(table);
 }
 
 int	main(int ac, char **av)

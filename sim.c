@@ -6,22 +6,32 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:34:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 08:39:25 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:05:51 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	get_end_value(t_table *table)
+{
+	int	value;
+
+	pthread_mutex_lock(&table->dead_lock);
+	value = table->end_simulation;
+	pthread_mutex_unlock(&table->dead_lock);
+	return (value);
+}
 
 void	*monitor_philos(void *arg)
 {
 	t_table		*table;
 	long int	time_since_last_meal;
 	int			i;
+	t_philo		*philos;
 
 	table = (t_table *)arg;
-	t_philo	*philos;
 	philos = table->philos;
-	while (!table->end_simulation)
+	while (!get_end_value(table))
 	{
 		i = -1;
 		while (++i < table->philo_count)
@@ -32,11 +42,9 @@ void	*monitor_philos(void *arg)
 			if (time_since_last_meal >= table->time_to_die)
 			{
 				is_dead(&philos[i], 1);
-				// pthread_mutex_lock(&table->dead_lock);
-				// table->end_simulation = 1;
-				// pthread_mutex_unlock(&table->dead_lock);
 				pthread_mutex_lock(&table->write_lock);
-				printf("%ld : philo %d died\n", timestamp() - table->start_time, philos[i].id);
+				printf("%ld : philo %d died\n", timestamp() - table->start_time,
+					philos[i].id);
 				pthread_mutex_unlock(&table->write_lock);
 				return (NULL);
 			}
@@ -64,7 +72,9 @@ void	eat(t_philo *philo)
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_meal_time = timestamp();
 	pthread_mutex_unlock(&philo->meal_lock);
+	pthread_mutex_lock(&philo->count_lock);
 	philo->meals_counter++;
+	pthread_mutex_unlock(&philo->count_lock);
 	print(philo, "is eating\n");
 	ft_usleep(philo->table->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);
@@ -85,15 +95,19 @@ void	*philo_life(void *arg)
 	{
 		pick_fork(philo);
 		eat(philo);
-		if (philo->meals_counter >= philo->table->meals_limit && philo->table->meals_limit != -1)
+		pthread_mutex_lock(&philo->count_lock);
+		if (philo->meals_counter >= philo->table->meals_limit
+			&& philo->table->meals_limit != -1)
 		{
-	        print(philo, "is full*********************\n");
+			pthread_mutex_unlock(&philo->count_lock);
+			print(philo, "is full\n");
 			pthread_mutex_lock(&philo->table->stop_lock);
 			if (++philo->table->finshed_eating == philo->table->philo_count)
 				is_dead(philo, 1);
 			pthread_mutex_unlock(&philo->table->stop_lock);
 			return (NULL);
 		}
+		pthread_mutex_unlock(&philo->count_lock);
 	}
 	return (NULL);
 }
