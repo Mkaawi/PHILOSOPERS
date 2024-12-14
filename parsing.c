@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:04:06 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/14 11:11:55 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:22:06 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,6 @@ int	is_valid(const char *str)
 	}
 	if (len > 10)
 		return (printf("value too long\n"), 0);
-	if (ft_atoi (str) < 60)
-		return (printf("time must be 60 or higher\n"), 0);
-	return (1);
-}
-
-int	is_valid2(const char *str)
-{
-	int			i;
-	int			len;
-	const char	*number;
-
-	i = 0;
-	len = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-')
-		return (printf("No negative numbers pls\n"), 0);
-	if (!(str[i] >= '0' && str[i] <= '9'))
-		return (printf("input is not a digit\n"), 0);
-	number = str;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		i++;
-		len++;
-	}
-	if (len > 10)
-		return (printf("value too long\n"), 0);
-	if (ft_atoi(str) > 200)
-		return (printf("philos must be 200 or lower\n"), 0);
 	return (1);
 }
 
@@ -102,12 +71,6 @@ int	check_num(char **str)
 	int	j;
 
 	i = 1;
-	if (str[i])
-	{
-		if (!is_valid2(str[i]))
-			return (1);
-	}
-	i++;
 	while (str[i])
 	{
 		j = 0;
