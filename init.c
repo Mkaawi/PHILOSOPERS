@@ -6,7 +6,7 @@
 /*   By: abdennac <abdennac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 00:48:44 by abdennac          #+#    #+#             */
-/*   Updated: 2024/12/12 10:09:33 by abdennac         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:07:23 by abdennac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	table_init(t_table *table, char **av)
 	pthread_mutex_init(&table->dead_lock, NULL);
 	pthread_mutex_init(&table->stop_lock, NULL);
 	if (check_num(av))
-		return (printf("Invalid Arguments\n"), 1);
+		return (1);
 	table->philo_count = ft_atoi(av[1]);
 	table->time_to_die = ft_atoi(av[2]);
 	table->time_to_eat = ft_atoi(av[3]);
